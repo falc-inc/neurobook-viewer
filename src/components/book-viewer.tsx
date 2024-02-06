@@ -1,14 +1,9 @@
 import { useState } from "react";
-import { VolatileState, Renderer } from "./components/renderer";
-import { mockBasePath } from "./msw/constants";
-import { useSearchParams } from 'react-router-dom'
-import { PageViewMode } from '@vivliostyle/core'
+import { Renderer, VolatileState } from "./renderer";
+import { PageViewMode } from "@vivliostyle/core";
+import { mockBasePath } from "../msw/constants";
 
-const BookViewer = () => {
-  const [
-    searchParams
-  ] = useSearchParams();
-  const filePath = searchParams.get("filePath");
+export const BibiViewer = ({ filePath }: { filePath?: string }) => {
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
@@ -61,5 +56,3 @@ const BookViewer = () => {
     </article>
   );
 };
-
-export default BookViewer;
