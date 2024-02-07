@@ -1,15 +1,17 @@
 import { VolatileState, Renderer } from "./components/renderer";
 import { mockBasePath } from "./msw/constants";
-import { useSearchParams } from "react-router-dom";
 import { PageViewMode } from "@vivliostyle/core";
 import { ToParent, ToViewer } from "./event";
 import { useEffect, useState } from "react";
+import queryString from 'query-string';
 
 const BookViewer = () => {
-  const [searchParams] = useSearchParams();
+  const search = window.location.search;
+  const query3 = queryString.parse(search);
+
   const [page, setPage] = useState(1);
 
-  const book = searchParams.get("book");
+  const book = query3['book'] as string
 
   // epubファイルを開く場合はServiceWorkerでUnzipするため、モックサーバーにリクエストを送る
   const source = book?.endsWith(".epub") ? `${mockBasePath}?url=${book}` : book;
