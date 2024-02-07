@@ -13,4 +13,7 @@ export type ToParent = {
 export type ToViewer = {
   type: 'set-page',
   page: number,
+} | {
+  type: 'set-font-size',
+  fontSize: number,
 }
