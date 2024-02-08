@@ -14,7 +14,6 @@ const Delay = () => {
     }, 500)
   }, [])
   return show ? <App /> : null
-
 }
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
