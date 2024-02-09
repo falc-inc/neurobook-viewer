@@ -3,7 +3,7 @@ import { handlers } from "./handlers";
 
 export const setupMsw = () => {
   const worker = setupWorker(...handlers);
-  worker.start({
+  return worker.start({
     quiet: true,
   });
 };
