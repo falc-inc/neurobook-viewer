@@ -1,9 +1,9 @@
 import { setupWorker } from "msw/browser";
 import { handlers } from "./handlers";
 
-export const setupMsw = () => {
+export const setupMsw = async () => {
   const worker = setupWorker(...handlers);
-  worker.start({
+  return worker.start({
     quiet: true,
   });
 };
