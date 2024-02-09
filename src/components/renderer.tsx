@@ -6,7 +6,7 @@ import {
   Payload,
   ReadyState,
 } from "@vivliostyle/core";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { epageFromPageNumber } from "./epage";
 
 export type MessageType = "debug" | "info" | "warn";
@@ -84,7 +84,8 @@ const _renderer = ({
 }: RendererProps): ReturnType<ChildrenFunction> | JSX.Element => {
   const containerRef = useRef<HTMLDivElement>(null);
   const instanceRef = useRef<CoreViewer>();
-  const stateRef = React.useRef<VolatileState>();
+  const stateRef = useRef<VolatileState>();
+  const [retryCount, setRetryCount] = useState(0);
 
   function setViewerOptions() {
     const viewerOptions = {
@@ -149,6 +150,13 @@ const _renderer = ({
     const handleWarn = (payload: Payload) => handleMessage(payload, "warn");
 
     function handleError(payload: Payload) {
+      if (retryCount < 5) {
+        setRetryCount(retryCount + 1);
+        window.setTimeout(() => {
+          loadSource();
+        }, 500)
+        return
+      }
       onError && onError(payload.content);
     }
 
