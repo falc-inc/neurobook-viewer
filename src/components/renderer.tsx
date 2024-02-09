@@ -150,7 +150,7 @@ const _renderer = ({
     const handleWarn = (payload: Payload) => handleMessage(payload, "warn");
 
     function handleError(payload: Payload) {
-      if (retryCount < 5) {
+      if (retryCount < 20) {
         setRetryCount(retryCount + 1);
         window.setTimeout(() => {
           loadSource();
